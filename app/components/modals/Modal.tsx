@@ -15,6 +15,7 @@ interface ModalProps {
   secondaryAction?: () => void;
   secondaryActionLabel?: string;
 }
+
 const Modal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
