@@ -180,7 +180,7 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../../../prisma",
@@ -190,16 +190,17 @@ const config = {
     "db"
   ],
   "activeProvider": "mongodb",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "mongodb+srv://waleed:waleed123456789@cluster0.qapsxyo.mongodb.net/test"
+        "value": null
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../app/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"mongodb\"\n  url      = env(\"DATABASE_URL\")\n}\n\n// models \nmodel User {\n  id             String    @id @default(auto()) @map(\"_id\") @db.ObjectId\n  name           String?\n  email          String?   @unique\n  emailVerified  DateTime?\n  image          String?\n  hashedPassword String?\n  createdAt      DateTime  @default(now())\n  updatedAt      DateTime  @updatedAt\n  favoriteIds    String[]  @db.ObjectId\n\n  accounts     Account[]\n  listings     Listing[]\n  reservations Reservation[]\n}\n\nmodel Account {\n  id                String  @id @default(auto()) @map(\"_id\") @db.ObjectId\n  userId            String  @db.ObjectId\n  type              String\n  provider          String\n  providerAccountId String\n  refresh_token     String? @db.String\n  access_token      String? @db.String\n  expires_at        Int?\n  token_type        String?\n  scope             String?\n  id_token          String? @db.String\n  session_state     String?\n\n  user User @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@unique([provider, providerAccountId])\n}\n\nmodel Listing {\n  id            String   @id @default(auto()) @map(\"_id\") @db.ObjectId\n  title         String\n  description   String\n  imageSrc      String\n  createdAt     DateTime @default(now())\n  category      String\n  roomCount     Int\n  bathroomCount Int\n  guestCount    Int\n  locationValue String\n  userId        String   @db.ObjectId\n  price         Int\n\n  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)\n  reservations Reservation[]\n}\n\nmodel Reservation {\n  id         String   @id @default(auto()) @map(\"_id\") @db.ObjectId\n  userId     String   @db.ObjectId\n  listingId  String   @db.ObjectId\n  startDate  DateTime\n  endDate    DateTime\n  totalPrice Int\n  createdAt  DateTime @default(now())\n\n  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)\n  listing Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)\n}\n",
-  "inlineSchemaHash": "fa874a73448c1b3aedfc31bb06682f3e4c9da8429f5535dbd81af5606b05df48",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../app/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"mongodb\"\n  url      = env(\"DATABASE_URL\")\n}\n\n// models \n\nmodel User {\n  id             String    @id @default(auto()) @map(\"_id\") @db.ObjectId\n  name           String?\n  email          String?   @unique\n  emailVerified  DateTime?\n  image          String?\n  hashedPassword String?\n  createdAt      DateTime  @default(now())\n  updatedAt      DateTime  @updatedAt\n  favoriteIds    String[]  @db.ObjectId\n\n  accounts     Account[]\n  listings     Listing[]\n  reservations Reservation[]\n}\n\nmodel Account {\n  id                String  @id @default(auto()) @map(\"_id\") @db.ObjectId\n  userId            String  @db.ObjectId\n  type              String\n  provider          String\n  providerAccountId String\n  refresh_token     String? @db.String\n  access_token      String? @db.String\n  expires_at        Int?\n  token_type        String?\n  scope             String?\n  id_token          String? @db.String\n  session_state     String?\n\n  user User @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@unique([provider, providerAccountId])\n}\n\nmodel Listing {\n  id            String   @id @default(auto()) @map(\"_id\") @db.ObjectId\n  title         String\n  description   String\n  imageSrc      String\n  createdAt     DateTime @default(now())\n  category      String\n  roomCount     Int\n  bathroomCount Int\n  guestCount    Int\n  locationValue String\n  userId        String   @db.ObjectId\n  price         Int\n\n  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)\n  reservations Reservation[]\n}\n\nmodel Reservation {\n  id         String   @id @default(auto()) @map(\"_id\") @db.ObjectId\n  userId     String   @db.ObjectId\n  listingId  String   @db.ObjectId\n  startDate  DateTime\n  endDate    DateTime\n  totalPrice Int\n  createdAt  DateTime @default(now())\n\n  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)\n  listing Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)\n}\n",
+  "inlineSchemaHash": "dc92137f42d888b1c0aa5a3af9172e57a2082cee3be7a31fe50e320d470f2e15",
   "copyEngine": true
 }
 config.dirname = '/'
