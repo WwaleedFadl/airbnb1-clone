@@ -2,9 +2,10 @@
 import axios from 'axios'
 import { AiFillGithub } from 'react-icons/ai'
 import { FcGoogle } from 'react-icons/fc'
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import useRegisterModal from '@/app/hooks/userRegisterModal'
+import useLoginModal from '@/app/hooks/useLoginModal'
 import Modal from './Modal'
 import Heading from '../Heading'
 import Input from '../inputs/Input'
@@ -13,6 +14,7 @@ import Button from '../Button'
 
 const LoginModal = () => {
   const registerModal = useRegisterModal();
+  const loginModal = useLoginModal()
   const [isLoading, setIsLoading] = useState(false);
   const { register, handleSubmit, formState: { errors, } } = useForm<FieldValues>({
     defaultValues: {
@@ -103,10 +105,10 @@ const LoginModal = () => {
   return (
     <Modal
       disabled={isLoading}
-      isOpen={registerModal.isOpen}
+      isOpen={loginModal.isOpen}
       title="Register"
       actionLabel='Continue'
-      onClose={registerModal.onClose}
+      onClose={loginModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}
       footer={FooterContent}
