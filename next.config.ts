@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
   },
   images: { 
       domains : [ 
-        "avatars.githubusercontent.com"
+        'avatars.githubusercontent.com'
     ]
   }
 };
