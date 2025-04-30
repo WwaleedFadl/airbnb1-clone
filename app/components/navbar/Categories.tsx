@@ -1,5 +1,4 @@
 'use client'
-
 import Container from "../Container"
 import { TbBeach, TbMountain, TbPool } from "react-icons/tb";
 import {
@@ -17,6 +16,7 @@ import { BsSnow } from "react-icons/bs";
 import { IoDiamond } from "react-icons/io5";
 import { MdOutlineVilla } from "react-icons/md";
 import CategoryBox from "./CategoryBox";
+import { useSearchParams } from "next/navigation";
 
 export const categories = [
   {
@@ -96,9 +96,11 @@ export const categories = [
   },
 ];
 const Categories = () => {
+  const params = useSearchParams()
   return (
     <Container>
-      <div className='pt-4 flex flex-row items-center justify-between overflow-x-auto'>
+      <div
+        className='pt-4 flex flex-row items-center justify-between overflow-x-auto'>
         {categories.map((item) => (
           <CategoryBox
             key={item.label}
