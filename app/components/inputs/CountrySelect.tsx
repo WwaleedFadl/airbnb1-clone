@@ -20,6 +20,7 @@ const CountrySelect: React.FC<CountrySelectProps> = ({
   onChange
 }) => {
   const { getAll } = useCountries()
+
   return (
     <div>
       <Select
