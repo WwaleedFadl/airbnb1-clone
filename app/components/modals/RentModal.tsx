@@ -56,7 +56,6 @@ const RentModal = () => {
   }), [location])
 
   const setCustomValue = (id: string, value: any) => {
-    alert(value)
     setValue(id, value, {
       shouldDirty: true,
       shouldTouch: true,
