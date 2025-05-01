@@ -29,7 +29,7 @@ const Counter: React.FC<CounterProps> = ({
       if (value === 1) {
         return;
       }
-      onChange(value + 1)
+      onChange(value - 1)
     },
     [value, onChange],
   )
