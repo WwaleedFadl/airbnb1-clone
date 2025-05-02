@@ -18,6 +18,7 @@ export async function POST(request: Request) {
     imageSrc,
     category,
     bathroomCount,
+    roomCount,
     guestCount,
     location,
     price
