@@ -1,7 +1,5 @@
 "use client";
-
 import React, { useMemo, useState } from "react";
-
 import Modal from "./Modal";
 import { categories } from "../navbar/Categories";
 import Heading from "../Heading";
@@ -105,9 +103,7 @@ const RantModal = (props: Props) => {
     if (step !== STEPS.PRICE) {
       return onNext();
     }
-
     setIsLoading(true);
-
     axios
       .post("/api/listings", data)
       .then(() => {
