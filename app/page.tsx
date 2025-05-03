@@ -3,10 +3,14 @@ import ClientOnly from './components/ClientOnly'
 import Container from './components/Container'
 import EmptyState from './components/EmptyState';
 import getListings from './actions/getListing';
+import getCurrentUser from './actions/getCurrentUser';
+import ListingCard from './components/listings/ListingCard';
 
 export default async function Home() {
   const listings = await getListings()
-
+  alert(listings)
+  const currentUser = await getCurrentUser()
+  alert(currentUser)
   if (listings.length) {
     return (
       <ClientOnly>
@@ -23,9 +27,10 @@ export default async function Home() {
         >
           {listings.map((listing: any) => {
             return (
-              <div>
-                {listing.title}
-              </div>
+              <ListingCard
+                key={listing.id}
+                data={listing}
+              />
             )
           })}
         </div>
