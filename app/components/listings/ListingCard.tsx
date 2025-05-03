@@ -41,7 +41,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
       return reservation.totalPrice;
     }
     return data.price
-  }, [])
+  }, [reservation, data.price])
   return (
     <div>test</div>
   )
