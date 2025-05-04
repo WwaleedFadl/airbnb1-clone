@@ -13,7 +13,7 @@ const Heading: React.FC<HeadingProps> = ({
 }) => {
   return (
     <div
-      className={center ? 'text-center' : 'text-start'}
+      className={center ? 'text-center m-1' : 'text-start m-2'}
     >
       <div className='text-2xl font-bold'>
         {title}
