@@ -11,7 +11,7 @@ interface HeartButtonProps {
 
 const HeartButton: React.FC<HeartButtonProps> = ({
   currentUser
-  ,listingId
+  , listingId
 }) => {
   const { hasFavorited, toggleFavorite } = useFavorite({
     listingId,
