@@ -1,6 +1,14 @@
-const Listingpage = () => {
+import getListingById from "@/app/actions/getListingById"
+
+interface IParams {
+  listingId?: string;
+}
+
+const Listingpage = async ({ params }: { params: IParams }) => {
+  const listing = await getListingById(params)
+
   return (
-    <div>Listing Page</div>
+    <div>{listing.title}</div>
   )
 }
 
