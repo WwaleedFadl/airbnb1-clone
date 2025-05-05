@@ -4,6 +4,7 @@ import useCountries from "@/app/hooks/useCountries";
 import { SafeUser } from "@/app/types"
 import { IconType } from "react-icons";
 import Avatar from "../Avatar";
+import ListingCategory from "./ListingCategory";
 
 interface ListingInfoProps {
   user: SafeUser;
@@ -31,12 +32,12 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
   locationValue
 }) => {
   const { getByValue } = useCountries();
-  const coordinates = getByValue(locationValue?.latlng);
+  const coordinates = getByValue(locationValue)?.latlng;
 
 
   return (
     <div
-      className="col-span-4 flex flex-4 gap-8"
+      className="col-span-4 flex flex-4 gap-8 m-2"
     >
       <div
         className="flex flex-col gap-2"
@@ -60,6 +61,15 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
       </div>
       <hr />
       {/*listing category here*/}
+      {
+        category && (
+          <ListingCategory
+            icon={category.icon}
+            label={category.label}
+            description={category.description}
+          />
+        )
+      }
     </div>
   )
 }
