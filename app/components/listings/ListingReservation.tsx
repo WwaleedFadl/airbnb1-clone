@@ -1,4 +1,8 @@
 'use client'
+
+import { Range } from "react-date-range";
+import Calender from "../inputs/Calender";
+
 interface ListingReservationProps {
   price: number;
   dateRange: Range;
@@ -9,9 +13,35 @@ interface ListingReservationProps {
   disabledDates: Date[]
 }
 
-const ListingReservation = () => {
+const ListingReservation: React.FC<ListingReservationProps> = ({
+  price,
+  dateRange,
+  totalPrice,
+  onChangeDate,
+  onSubmit,
+  disabled,
+  disabledDates
+}) => {
   return (
-    <div>test</div>
+    <div
+      className="bg-white rounded-xl border-[1px] border-neutral-500 overflow-hidden"
+    >
+      <div
+        className='flex flex-row gap-1 items-center p-4'>
+        <div className='text-2xl font-semibold'>
+          $ {price}
+        </div>
+        <div className='font-light text-neutral-600'>
+          night
+        </div>
+      </div>
+      <hr />
+      <Calender
+        value={dateRange}
+        disabledDates={disabledDates}
+        onChange={(value) => onChangeDate(value.selection)}
+      />
+    </div>
   )
 }
 
