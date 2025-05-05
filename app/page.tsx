@@ -1,19 +1,16 @@
 'use client'
-import Container from "@/app/components/Container";
-import ListingCard from "@/app/components/listings/ListingCard";
-import EmptyState from "@/app/components/EmptyState";
+import Container from "./components/Container";
+import ListingCard from "./components/listings/ListingCard";
+import EmptyState from "./components/EmptyState";
 
-import getListings, { IListingsParams } from "@/app/actions/getListing";
-import getCurrentUser from "@/app/actions/getCurrentUser";
+import getListings from "./actions/getListing";
+import getCurrentUser from "./actions/getCurrentUser";
 import ClientOnly from "./components/ClientOnly";
 
-interface HomeProps {
-  searchParams: IListingsParams;
-}
 
-const Home = async ({ searchParams }: HomeProps) => {
+const Home = async () => {
 
-  const listings = await getListings(searchParams);
+  const listings = await getListings();
   const currentUser = await getCurrentUser();
 
   if (listings.length === 0) {
