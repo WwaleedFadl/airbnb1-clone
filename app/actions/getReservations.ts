@@ -10,8 +10,6 @@ export default async function getReservations(
   params: IParams
 ) {
   try {
-
-
     const { listingId, userId, authorId } = params;
     const query: any = {}
 
@@ -38,9 +36,10 @@ export default async function getReservations(
         createdAt: 'desc'
       }
     })
+
     const safeReservations = reservations.map(
       (reservation) => ({
-      ..reservation,
+        ...reservation,
         createdAt: reservation.createdAt.toISOString(),
         startDate: reservation.startDate.toISOString(),
         endDate: reservation.endDate().toISOString(),
@@ -55,4 +54,3 @@ export default async function getReservations(
     throw new Error(error)
   }
 }
-
