@@ -6,6 +6,7 @@ import Heading from "../components/Heading";
 import { SafeReservation, SafeUser } from "../types"
 import { useRouter } from 'next/navigation'
 import { useState, useCallback } from 'react'
+import axios from "axios";
 
 
 interface TripsClientProps {
@@ -24,7 +25,7 @@ const TripsClient: React.FC<TripsClientProps> = ({
       setDeletingId(id)
       axios.delete(`/api/reservations/${id}`)
         .then(() => {
-          toast..success("Reservations cancelled")
+          toast.success("Reservations cancelled")
           router.refresh()
         })
         .catch((error) => {
