@@ -8,6 +8,7 @@ import { format } from 'date-fns'
 import Image from "next/image";
 import HeartButton from "../HeartButton";
 import Button from './../Button'
+
 interface ListingCardProps {
   data: SafeListing;
   reservation?: SafeReservation;
@@ -97,7 +98,8 @@ const ListingCard: React.FC<ListingCardProps> = ({
           }
         </div>
 
-        {onAction && actionLabel && (
+        {
+          onAction && actionLabel && (
           <Button
             disabled={disabled}
             small
