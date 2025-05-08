@@ -1,63 +1,66 @@
+import NextAuth from "next-auth";
+import type { NextAuthOptions } from "next-auth";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import NextAuth, { AuthOptions } from "next-auth";
-import prisma from '@/app/libs/prismadb'
-import GithubProvider from "next-auth/providers/github";
-import GoogleProvider from "next-auth/providers/google";
-import CredentialsProvider from "next-auth/providers/credentials";
-import bcrypt from 'bcrypt'
+import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcrypt";
 
-export const authOptions: AuthOptions = {
+import GoogleProvider from "next-auth/providers/google";
+import GitHubProvider from "next-auth/providers/github";
+import CredentialsProvider from "next-auth/providers/credentials";
+
+const prisma = new PrismaClient();
+
+export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
-    GithubProvider({
-      clientId: process.env.GITHUB_ID as string,
-      clientSecret: process.env.GITHUB_SECRET as string,
-    }),
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
+    GitHubProvider({
+      clientId: process.env.GITHUB_ID as string,
+      clientSecret: process.env.GITHUB_SECRET as string,
+    }),
     CredentialsProvider({
-      name: 'credentials',
+      name: "Credentials",
       credentials: {
-        email: { label: 'email', type: 'text' },
-        password: { label: 'password', type: 'password' }
-      }
-      , async authorize(credentials) {
+        email: { label: "Email", type: "text" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
-          throw new Error("Invalid credentials")
+          throw new Error("Invalid credentials");
         }
 
         const user = await prisma.user.findUnique({
           where: {
-            email: credentials.email
-          }
-        })
+            email: credentials.email,
+          },
+        });
 
         if (!user || !user?.hashedPassword) {
-          throw new Error("Invalid credentials")
+          throw new Error("Invalid credentails");
         }
 
         const isCorrectPassword = await bcrypt.compare(
-          credentials.password, user.hashedPassword
-        )
+          credentials.password,
+          user.hashedPassword
+        );
 
         if (!isCorrectPassword) {
-          throw new Error("Invalid credentials")
+          throw new Error("Invalid credentails");
         }
 
         return user;
-      }
-    })
+      },
+    }),
   ],
   pages: {
-    signIn: '/'
-  }
-  , debug: process.env.NODE_ENV === 'development'
-  , session: {
-    strategy: 'jwt'
-  }
-  , secret: process.env.NEXTAUTH_SECRET
-}
+    signIn: "/",
+  },
+  debug: process.env.NODE_ENV === "development",
+  session: { strategy: "jwt" },
+  secret: process.env.NEXTAUTH_SECRET,
+};
 
 export default NextAuth(authOptions);

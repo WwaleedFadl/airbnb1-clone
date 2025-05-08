@@ -1,30 +1,29 @@
-import type { Metadata } from "next";
-import { Nunito } from "next/font/google";
 import "./globals.css";
+import { Nunito } from "next/font/google";
+
 import Navbar from "./components/navbar/Navbar";
 import ClientOnly from "./components/ClientOnly";
-import React from "react";
-import RegisterModal from "./components/modals/RegisterModal";
-import ToasterProvider from "./providers/ToasterProvider";
-import LoginModal from "./components/modals/LoginModal";
+import RegisterModal from "./components/modal/RegisterModal";
+import ToasterProvider from "./providers/ToastProvider";
+import LoginModal from "./components/modal/LoginModal";
+
 import getCurrentUser from "./actions/getCurrentUser";
-import RentModal from "./components/modals/RentModal";
+import RantModal from "./components/modal/RantModal";
+import SearchModal from "./components/modal/SearchModal";
 
-const font = Nunito({
-  subsets: ["latin"],
-});
+const font = Nunito({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "Airbnb-clone",
-  description: "Iti project",
+export const metadata = {
+  title: "Airbnb",
+  description: "Airbnb clone",
 };
 
 export default async function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
-  const currentUser = await getCurrentUser()
+}) {
+  const currentUser = await getCurrentUser();
 
   return (
     <html lang="en">
@@ -32,15 +31,12 @@ export default async function RootLayout({
         <ClientOnly>
           <ToasterProvider />
           <RegisterModal />
-          <RentModal />
+          <SearchModal />
           <LoginModal />
+          <RantModal />
           <Navbar currentUser={currentUser} />
         </ClientOnly>
-        <div
-          className="pb-20 pt-28"
-        >
-          {children}
-        </div>
+        <div className="pb-20 pt-28">{children}</div>
       </body>
     </html>
   );
