@@ -10,9 +10,14 @@ interface HomeProps {
   searchParams: IListingsParams;
 }
 
-const Home =  ({ searchParams }: HomeProps) => {
-  const listings =  getListings(searchParams);
-  const currentUser =  getCurrentUser();
+const Home =  async({ searchParams }: HomeProps) => {
+
+  const currentUser =  await getCurrentUser();
+
+  if (!currentUser) {
+    return <EmptyState title="Unauthorized" subtitle="Please login" />;
+  }
+  const listings =  await getListings(searchParams);
 
   if (listings.length === 0) {
     return (
