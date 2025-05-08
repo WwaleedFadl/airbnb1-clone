@@ -1,4 +1,3 @@
-
 "use client";
 import qs from "query-string";
 import dynamic from "next/dynamic";
@@ -7,7 +6,6 @@ import { Range } from "react-date-range";
 import { formatISO } from "date-fns";
 import { useRouter, useSearchParams } from "next/navigation";
 import useSearchModal from "@/app/hooks/useSearchModal";
-
 import Modal from "./Modal";
 import Calendar from "../inputs/Calendar";
 import Counter from "../inputs/Counter";
@@ -24,9 +22,7 @@ const SearchModal = () => {
   const router = useRouter();
   const searchModal = useSearchModal();
   const params = useSearchParams();
-
   const [step, setStep] = useState(STEPS.LOCATION);
-
   const [location, setLocation] = useState<CountrySelectValue>();
   const [guestCount, setGuestCount] = useState(1);
   const [roomCount, setRoomCount] = useState(1);
