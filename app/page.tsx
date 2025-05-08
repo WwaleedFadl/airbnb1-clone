@@ -2,7 +2,7 @@ import Container from "./components/Container";
 import ListingCard from "./components/listings/ListingCard";
 import EmptyState from "./components/EmptyState";
 
-import getListings, { IListingsParams } from "./actions/getListing";
+import getListing, { IListingsParams } from "./actions/getListing";
 
 import getCurrentUser from "./actions/getCurrentUser";
 import ClientOnly from "./components/ClientOnly";
