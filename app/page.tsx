@@ -5,13 +5,27 @@ import EmptyState from "@/app/components/EmptyState";
 import getListings, { IListingsParams } from "@/app/actions/getListings";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import ClientOnly from "./components/ClientOnly";
+import { NextResponse } from "next/server";
 
 interface HomeProps {
   searchParams: IListingsParams;
 }
 
 const Home = async ({ searchParams }: HomeProps) => {
+	try{
   const listings = await getListings(searchParams);
+	return NextResponse.json(listings)
+}catch (error) {
+
+    // Wait!
+    // We are trying/catching errors here, so any thrown error withen 
+    // the try block will no longer be thrown. As a result, 
+    // Next.js no longer knows when you use dynamic data
+ 
+    return NextResponse.json({
+      apiMessage: { errorMsg: "Internal Server Error, Please try again later" },
+    });
+  }
   const currentUser = await getCurrentUser();
 
   if (listings.length === 0) {
